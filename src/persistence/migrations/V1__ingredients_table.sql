@@ -3,7 +3,7 @@ CREATE TABLE ingredients
 (
     item_id    BIGINT PRIMARY KEY,
     name       TEXT NOT NULL,
-    cost       BIGINT NOT NULL,
+    cost       DECIMAL NOT NULL,
     item_link  TEXT NOT NULL
 
 );
