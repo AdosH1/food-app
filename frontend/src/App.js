@@ -4,9 +4,21 @@ const UserInput = () => {
   const [inputValue, setInputValue] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState(null);
+  const [alternateTextIndex, setAlternateTextIndex] = useState(0); // For alternating text
+
+  const alternatingTexts = [
+    "Allergies? No worries.",
+    "Let me know if you have any dietary requirements!",
+    "Try a specific cuisine!",
+    "Bulking? Cutting? Make sure to let me know"
+  ];
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const handleAlternateText = () => {
+    setAlternateTextIndex((prevIndex) => (prevIndex + 1) % alternatingTexts.length);
   };
 
   const handleSubmit = async () => {
@@ -42,10 +54,34 @@ const UserInput = () => {
     }
   };
 
+  const formatResponse = () => {
+    if (!responseData) return null;
+    try {
+      const parsedData = JSON.parse(responseData); // Parse JSON response
+      return Object.entries(parsedData).map(([key, value]) => (
+        <div key={key}>
+          <h3>{key}</h3>
+          <ul>
+            {value.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ));
+    } catch (error) {
+      return <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{responseData}</pre>;
+    }
+  };
+
   return (
     <div style={styles.page}>
+      <div style={styles.overlay}></div> {/* Overlay for the blur effect */}
+        <img src="/cheap_chow_logo.png" alt="Cheap Chow Logo" style={styles.logo} />
       <div style={styles.container}>
         <h1 style={styles.header}>What do you want to make?</h1>
+        <p style={styles.alternatingText} onClick={handleAlternateText}>
+          {alternatingTexts[alternateTextIndex]}
+        </p>
         <input
           type="text"
           value={inputValue}
@@ -59,8 +95,12 @@ const UserInput = () => {
       </div>
       {responseData && (
         <div style={styles.responseContainer}>
-          <h2>Response from server:</h2>
-          <pre style={styles.response}>{JSON.stringify(responseData, null, 2)}</pre>
+          <h2>AI:</h2>
+          <div style={styles.response}>
+            <pre style={{ whiteSpace: 'pre-wrap', margin: 0, overflow: 'auto' }}>
+              {formatResponse()}
+            </pre>
+          </div>
         </div>
       )}
       {error && (
@@ -74,24 +114,35 @@ const UserInput = () => {
 
 const styles = {
   page: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100vh',
-    backgroundImage: 'url("/path/to/your/background-image.jpg")',
+    minHeight: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
+    backgroundImage: `url("/bkg.jpg")`,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust opacity here
   },
   container: {
-    maxWidth: '400px',
-    margin: '50px auto',
+    position: 'relative', // Ensure the container is above the overlay
+    maxWidth: '1200px',
+    width: '100%',
+    margin: '20px auto',
     padding: '20px',
-    textAlign: 'center',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    borderRadius: '8px',
+    textAlign: 'left',
     backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     zIndex: 2,
   },
   header: {
@@ -142,7 +193,18 @@ const styles = {
   error: {
     marginTop: '20px',
     color: 'red',
-  }
+  },
+  logo: {
+    width: '100px', // Adjust size as needed
+    height: 'auto', // Maintain aspect ratio
+    marginBottom: '20px', // Adjust spacing
+  },
+  alternatingText: {
+    fontSize: '14px', // Adjust size as needed
+    color: '#666', // Adjust color
+    cursor: 'pointer', // Show pointer on hover
+    marginBottom: '10px', // Adjust spacing
+  },
 };
 
 export default UserInput;

@@ -23,7 +23,7 @@ services:
             - dbHost=database
             - repositoryUsername=postgres
             - repositoryPassword=postgres
-            - GROQ_API_KEY=replace_me
+            - GROQ_API_KEY=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
         depends_on:
             database:
                 condition: service_healthy
