@@ -12,7 +12,7 @@ def meal_plan_query(user_input):
 
     meal_plan = client.chat.completions.create(
         messages=[
-            context, 
+            meal_plan_context, 
             groq_input,
           ],
         model="llama3-8b-8192",
