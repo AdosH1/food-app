@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from openai.query import meal_plan_query
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ def hello():
 @app.route('/meal-plan', methods=['POST'])
 def meal_plan():
     user_input = request.form['user_input']
-    response = meal_plan_query(context, user_input)
+    response = meal_plan_query(user_input)
     return response.content
 
 if __name__ == "__main__":
