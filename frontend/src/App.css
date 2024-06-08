@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 60vmin;
   pointer-events: none;
 }
 
@@ -43,9 +43,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: auto; /* Change height to auto */
   overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.85);
 }
+
 
 .page::before {
   content: "";
@@ -54,12 +56,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("bkg.jpg");
+  background-image: url('../bkg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1;
+  opacity: 0.15; /* Set the opacity to 0.15 */
 }
+
+
 
 .container, .responseContainer {
   position: relative;
@@ -67,7 +72,8 @@
 }
 
 .container {
-  max-width: 400px;
+  max-width: 2000px;
+  width: 100%;
   margin: 50px auto;
   padding: 20px;
   text-align: center;
