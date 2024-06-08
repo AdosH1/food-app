@@ -1,6 +1,5 @@
 import psycopg2
-import json
-
+import os
 
 class Item:
     def __init__(self, item_id, item_name, item_price, item_link):
@@ -11,9 +10,10 @@ class Item:
 
 
 def get_items_JSON():
-
+    environmentHost = os.environ.get('dbHost')
+    dbHost = environmentHost if environmentHost else 'localhost'
     conn = psycopg2.connect(
-        dbname="postgres", user="postgres", password="postgres", host="localhost", port="5432")
+        dbname="postgres", user="postgres", password="postgres", host=dbHost, port="5432")
     curr = conn.cursor()
 
     curr.execute("SELECT * FROM ingredients;")
@@ -23,9 +23,7 @@ def get_items_JSON():
     data = []
 
     for row in rows:
-
         data.append([row[0], row[1], float(row[2]), row[3]])
-
     # convert list of tuples to json
 
     curr.close()
@@ -41,11 +39,7 @@ def get_items_JSON():
         for item_id, name, cost, item_link in data
     ]
 
-
-# Convert list of dictionaries to JSON
-    ingredients_json = json.dumps(ingredients_list, indent=2)
-
-    return ingredients_json
+    return ingredients_list
 
 
 get_items_JSON()
