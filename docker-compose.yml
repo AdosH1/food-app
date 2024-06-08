@@ -8,8 +8,9 @@ services:
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=postgres
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
             interval: 2s
             timeout: 6s
             retries: 3
@@ -23,7 +24,8 @@ services:
             - repositoryUrl=jdbc:postgresql://database:5432/
             - repositoryUsername=postgres
             - repositoryPassword=postgres
-            - GROQ_API_KEY= insert_key
+            - GROQ_API_KEY= "replace with your key"
+
         depends_on:
             database:
                 condition: service_healthy
@@ -32,5 +34,5 @@ services:
             context: ./
             dockerfile: docker/frontend.dockerfile
         ports:
-        - "8080:80"
+            - "8080:80"
         stdin_open: true
