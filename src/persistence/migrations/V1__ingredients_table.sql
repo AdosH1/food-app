@@ -9,7 +9,7 @@ CREATE TABLE ingredients
 );
 
 -- Fill the table with information from the CSV file
-COPY ingredients(name, cost, item_link)
+COPY ingredients(item_id,name, cost, item_link)
 FROM '/docker-entrypoint-initdb.d/ingredients_list.csv'
 DELIMITER ','
 CSV HEADER;
