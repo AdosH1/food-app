@@ -10,8 +10,8 @@ services:
             - POSTGRES_PASSWORD=postgres
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U postgres"]
-            interval: 1s
-            timeout: 3s
+            interval: 2s
+            timeout: 6s
             retries: 3
     webapi:
         build:
@@ -23,6 +23,7 @@ services:
             - repositoryUrl=jdbc:postgresql://database:5432/
             - repositoryUsername=postgres
             - repositoryPassword=postgres
+            - GROQ_API_KEY=replace_me
         depends_on:
             database:
                 condition: service_healthy
