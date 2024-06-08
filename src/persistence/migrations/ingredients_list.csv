@@ -1,5 +1,5 @@
 item_id,name,cost,item_link
-1,Flour,2,https://example.com/flour
+1,Flour,2.6,https://example.com/flour
 2,Sugar,1,https://example.com/sugar
 3,Butter,3,https://example.com/butter
 4,Eggs,2,https://example.com/eggs
