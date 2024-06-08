@@ -20,12 +20,21 @@ const UserInput = () => {
 
     try {
       const res = await fetch('http://localhost:8081/meal-plan', requestOptions);
-      console.log(res)
+      const contentType = res.headers.get('Content-Type');
+      const text = await res.text();  // Read the response as text
+
+      console.log(text);  // Log the response text
+
       if (!res.ok) {
         throw new Error(`Network response was not ok: ${res.statusText}`);
       }
-      const data = await res.json();
-      setResponseData(data.answer);
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = JSON.parse(text);  // Parse the text as JSON
+        setResponseData(data.answer || data);  // Handle different JSON structures
+      } else {
+        setResponseData(text);  // Handle raw text response
+      }
       setError(null);
     } catch (error) {
       setError('Error: ' + error.message);
@@ -74,7 +83,6 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    opacity: '0.35',
   },
   container: {
     maxWidth: '400px',
