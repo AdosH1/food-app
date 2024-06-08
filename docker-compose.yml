@@ -23,7 +23,7 @@ services:
             - repositoryUrl=jdbc:postgresql://database:5432/
             - repositoryUsername=postgres
             - repositoryPassword=postgres
-            - GROQ_API_KEY=replace_me
+            - GROQ_API_KEY= insert_key
         depends_on:
             database:
                 condition: service_healthy
