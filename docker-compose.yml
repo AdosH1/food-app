@@ -24,7 +24,7 @@ services:
             - repositoryUrl=jdbc:postgresql://database:5432/
             - repositoryUsername=postgres
             - repositoryPassword=postgres
-            - GROQ_API_KEY= "replace with your key"
+            - GROQ_API_KEY=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
 
         depends_on:
             database:
