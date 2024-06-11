@@ -131,7 +131,7 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust opacity here
+    backgroundColor: 'rgba(180, 180, 180, 0.5)', // Adjust opacity here
   },
   container: {
     position: 'relative', // Ensure the container is above the overlay
@@ -195,7 +195,7 @@ const styles = {
     color: 'red',
   },
   logo: {
-    width: '100px', // Adjust size as needed
+    width: '300px', // Adjust size as needed
     height: 'auto', // Maintain aspect ratio
     marginBottom: '20px', // Adjust spacing
   },
